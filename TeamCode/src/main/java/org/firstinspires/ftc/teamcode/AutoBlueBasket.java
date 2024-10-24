@@ -7,15 +7,13 @@ public class AutoBlueBasket extends Robot{
     @Override
     public void runOpMode() throws InterruptedException {
 
-       initHardware();
-       AutonomousMovement auto = new AutonomousMovement(this);
+        initHardware();
+        AutonomousMovement auto = new AutonomousMovement(this);
 
-       waitForStart();
-       // go forward for 20 inches
+        waitForStart();
+
         auto.goForward(20,0.5);
-        // turn right 45 degrees
         auto.turnRight(45,0.5);
-        // go backwards 20 inches
         auto.goBackward(20,0.5);
         auto.releaseBlock();
         auto.setArm(2);
@@ -24,6 +22,5 @@ public class AutoBlueBasket extends Robot{
 
         auto.turnRight(45,0.5);
         auto.goForward(92,0.5);
-
     }
 }

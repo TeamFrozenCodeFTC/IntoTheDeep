@@ -20,7 +20,9 @@ public class AutonomousMovement {
         robot.backRightWheel.setPower(power);
         robot.frontLeftWheel.setPower(power);
         robot.frontRightWheel.setPower(power);
-       double targetTics = inchesToTics(inches);
+
+        double targetTics = inchesToTics(inches);
+
         while (Math.abs(robot.backRightWheel.getCurrentPosition()) < targetTics) {
 
         }

@@ -14,9 +14,9 @@ abstract class Robot extends LinearOpMode {
     DcMotor frontRightWheel;
     DcMotor backRightWheel;
 
-    DcMotor intakeExtender;
     DcMotor linearSlide;
-
+    
+    DcMotor intakeExtender;
     CRServo sweeper;
     Servo sweeperRotator;
 

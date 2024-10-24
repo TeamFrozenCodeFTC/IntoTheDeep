@@ -9,24 +9,53 @@ public class LinearSlide {
     }
 
     static final int MAX_TICKS = 4746;
-    static final int TICKS_MARGIN = 426;
+    static final int TICKS_MARGIN = 26;
 
-    static final int LINEAR_TICKS = MAX_TICKS - TICKS_MARGIN;
-//    static final int FORMULA_TICKS_MARGIN = 400;
+    static final int TICKS_TO_EQUATION = MAX_TICKS - 426;
+
+    static final int MIN = TICKS_MARGIN;
+    static final int MAX = MAX_TICKS - TICKS_MARGIN;
 
     boolean isExtended = false;
 
     void extend() {
+//        new Thread(() -> {
+//            isExtended = true;
+//            while (isExtended) {
+//                int ticks = operationMode.linearSlide.getCurrentPosition();
+//
+//                if (ticks < 4320) {
+//                    operationMode.linearSlide.setPower(1);
+//                }
+//                else {
+//                    double power = ((-1/400.0) * (ticks) + 11.8) / 4;
+//                    operationMode.linearSlide.setPower(power);
+//                }
+//            }
+//        }).start();
         new Thread(() -> {
             isExtended = true;
             while (isExtended) {
                 int ticks = operationMode.linearSlide.getCurrentPosition();
 
-                if (ticks < 4320) {
+                if (ticks < TICKS_TO_EQUATION) {
                     operationMode.linearSlide.setPower(1);
                 }
                 else {
-                    double power = ((-1/400.0) * (ticks) + 11.8) / 4;
+                    // (MIN, 1) (MAX, 0)
+                    // y-y_2/x-x_2
+                    int x_1 = MIN;
+                    int y_1 = 1;
+                    int x_2 = MAX;
+                    int y_2 = 0;
+
+                    double slope = (double) (y_1 - y_2) / (x_1 - x_2);
+                    // y = mx + b
+                    // 1 = slope*MIN + b
+                    // b = 1 - slope * MIN
+                    double y_int = 1 - slope * MIN;
+
+                    double power = (slope * ticks + y_int) / 4;
                     operationMode.linearSlide.setPower(power);
                 }
             }
